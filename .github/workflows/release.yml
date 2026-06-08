@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag, for example v0.1.0"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -25,9 +31,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
+          components: rustfmt
+      - run: cargo fmt --check
       - run: cargo test
       - run: cargo build --release --target ${{ matrix.target }}
       - run: |
@@ -36,4 +46,5 @@ jobs:
           tar -C dist -czf llmctl-${{ matrix.target }}.tar.gz llmctl
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
           files: llmctl-${{ matrix.target }}.tar.gz

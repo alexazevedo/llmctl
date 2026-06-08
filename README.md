@@ -86,6 +86,34 @@ curl -fsSL https://raw.githubusercontent.com/aazevedo/llmctl/main/install.sh | \
   LLMCTL_REPO=your-user/llmctl LLMCTL_VERSION=v0.1.0 sh
 ```
 
+## Publishing A Release
+
+CI runs on every push or pull request to `main`.
+
+Releases are built from version tags. To publish a release:
+
+```sh
+git checkout main
+git pull
+git tag -a v0.1.0 -m "v0.1.0"
+git push origin v0.1.0
+```
+
+The `release` GitHub Actions workflow builds release archives and attaches them
+to the GitHub release for that tag.
+
+You can also run the release workflow manually from GitHub:
+
+1. Open the repository on GitHub.
+2. Go to `Actions`.
+3. Select the `release` workflow.
+4. Click `Run workflow`.
+5. Enter an existing tag such as `v0.1.0`.
+
+The manual workflow expects the tag to already exist. Prefer tag-based releases
+for normal publishing because tags make the release source immutable and easy to
+audit.
+
 ## Local llama.cpp Model Roots
 
 `llama.cpp` does not have a universal model registry. To include standalone GGUF

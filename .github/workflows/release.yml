@@ -1,0 +1,39 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            target: aarch64-apple-darwin
+          - os: macos-13
+            target: x86_64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: cargo test
+      - run: cargo build --release --target ${{ matrix.target }}
+      - run: |
+          mkdir -p dist
+          cp target/${{ matrix.target }}/release/llmctl dist/llmctl
+          tar -C dist -czf llmctl-${{ matrix.target }}.tar.gz llmctl
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: llmctl-${{ matrix.target }}.tar.gz

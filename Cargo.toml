@@ -1,0 +1,8 @@
+[package]
+name = "llmctl"
+version = "0.1.0"
+edition = "2024"
+description = "Inventory local LLM models and runtime resource usage"
+license = "MIT"
+
+[dependencies]

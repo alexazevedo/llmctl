@@ -34,9 +34,41 @@ llmctl doctor
 
 ## Build
 
+From a local clone:
+
 ```sh
+git clone git@github.com:alexazevedo/llmctl.git
+cd llmctl
+cargo test
 cargo build --release
 ./target/release/llmctl
+```
+
+Rust is required. Install it with:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+## Install From Source
+
+Install directly from the local repository:
+
+```sh
+cargo install --path .
+llmctl
+```
+
+This installs `llmctl` into Cargo's bin directory, usually `~/.cargo/bin`.
+Make sure that directory is in your `PATH`.
+
+You can also install the release binary manually:
+
+```sh
+cargo build --release
+mkdir -p ~/.local/bin
+cp target/release/llmctl ~/.local/bin/llmctl
+llmctl
 ```
 
 ## Install From GitHub Release

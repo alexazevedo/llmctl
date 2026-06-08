@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-repo="${LLMCTL_REPO:-aazevedo/llmctl}"
+repo="${LLMCTL_REPO:-alexazevedo/llmctl}"
 version="${LLMCTL_VERSION:-latest}"
 install_dir="${LLMCTL_INSTALL_DIR:-$HOME/.local/bin}"
 

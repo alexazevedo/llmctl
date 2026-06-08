@@ -76,13 +76,13 @@ llmctl
 After publishing release artifacts, install with:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/aazevedo/llmctl/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/alexazevedo/llmctl/main/install.sh | sh
 ```
 
 Override the repository or version:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/aazevedo/llmctl/main/install.sh | \
+curl -fsSL https://raw.githubusercontent.com/alexazevedo/llmctl/main/install.sh | \
   LLMCTL_REPO=your-user/llmctl LLMCTL_VERSION=v0.1.0 sh
 ```
 
